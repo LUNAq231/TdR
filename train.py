@@ -76,10 +76,11 @@ print(f"Model saved to: {MODEL_PATH}")
 
 def load_image(image_path):
     # Load an image from disk and prepare it the exact same way the training images were prepared 
-    # (resize + normalize + add the batch dimension the model expects).
+    # (BGR to RGB + resize + add the batch dimension the model expects).
     image = cv2.imread(image_path)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = cv2.resize(image, IMAGE_SIZE)
-    image = image.astype('float32') / 255.0
+    image = image.astype('float32')
     image = np.expand_dims(image, axis=0)
     return image
 
